@@ -92,6 +92,11 @@ public class SpongeUser implements ArmorEquipable, Tamer, DataSerializable, Carr
 
     private final Map<UUID, RespawnLocation> spawnLocations = Maps.newHashMap();
 
+    private double posX;
+    private double posY;
+    private double posZ;
+    private int dimension;
+
     private SpongeUserInventory inventory; // lazy load when accessing inventory
     private NBTTagCompound nbt;
 
@@ -106,6 +111,16 @@ public class SpongeUser implements ArmorEquipable, Tamer, DataSerializable, Carr
     public void readFromNbt(NBTTagCompound compound) {
         this.reset();
         this.nbt = compound;
+
+        NBTTagList position = compound.getTagList(NbtDataUtil.ENTITY_POSITION, NbtDataUtil.TAG_DOUBLE);
+        this.posX = position.getDoubleAt(0);
+        this.posY = position.getDoubleAt(1);
+        this.posZ = position.getDoubleAt(2);
+        this.dimension = 0;
+        if (compound.hasKey(NbtDataUtil.ENTITY_DIMENSION)) {
+            this.dimension = compound.getInteger("Dimension");
+        }
+
         // See EntityPlayer#readEntityFromNBT
 
         final NBTTagCompound spongeCompound = compound.getCompoundTag(NbtDataUtil.FORGE_DATA).getCompoundTag(NbtDataUtil.SPONGE_DATA);

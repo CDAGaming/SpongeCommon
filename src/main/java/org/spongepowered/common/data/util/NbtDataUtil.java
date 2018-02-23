@@ -177,6 +177,7 @@ public final class NbtDataUtil {
     public static final String ENTITY_TYPE_ID = "id";
     public static final String MINECART_TYPE = "Type";
     public static final String ENTITY_POSITION = "Pos";
+    public static final String ENTITY_DIMENSION = "Dimension";
 
     // These are used by pickup/despawn delay for ItemEntity
     public static final String INFINITE_PICKUP_DELAY = "InfinitePickupDelay";
